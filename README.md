@@ -4,8 +4,8 @@ I got sick and tired of constantly checking RMNP for available campsites in the 
 
 ### How it works
 This project scrapes available campsites form Rocky Mountain National Park. Once all availabilities are found, the program will either send an email to the user or output the results, depending on the status of the 'send_email' flag (see below).  
-The main purpose of sending an email is to set up this program to automatically run using cron, Windows task scheduler, or a related program. Otherwise, you can manually run the program whenever you want to find an available campsite. The program checks for any available campsites throughout June, July, and August
-To run, simply clone the repo and type python availability.py  
+The main purpose of sending an email is to set up this program to automatically run using cron, Windows task scheduler, or a related program. Otherwise, you can manually run the program whenever you want to find an available campsite. The program checks for any available campsites throughout June, July, and August.  
+To run, simply clone the repo and type 'python availability.py' (assuming you have python properly installed)
 
 
 ## Weekends Flag
