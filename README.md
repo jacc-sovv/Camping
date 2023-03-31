@@ -1,6 +1,6 @@
 # Rocky Mountain National Park Automatic Camping Availability
 ### Motivation
-I got sick and tired of constantly checking RMNP for available campsites in the summer. They can be impossible to find, and if you don't reserve them months in advance, your only chance is to check availabilities after somebody cancels. I got sick and tired of this, so I made a program to run nightly and e-mail me with any available campsites!
+I got sick and tired of constantly checking RMNP for available campsites in the summer. They can be impossible to find, and if you don't reserve them months in advance, your only chance is to check availabilities after somebody cancels. I kept forgetting to check this, so I made a program to run nightly and e-mail me with any available campsites!
 
 ### How it works
 This project scrapes available campsites form Rocky Mountain National Park. Once all availabilities are found, the program will either send an email to the user or output the results, depending on the status of the 'send_email' flag (see below).  
