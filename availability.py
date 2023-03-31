@@ -59,8 +59,8 @@ for month in [6,7,8]:
 
 availability_as_string = ""
 for campground in avaiable_sites:
-
-    availability_as_string += campground + " Availability (" + "https://www.recreation.gov/camping/campgrounds/" + "):\n"
+    camp_id = list(campgrounds.keys())[list(campgrounds.values()).index(campground)]
+    availability_as_string += campground + " Availability (" + "https://www.recreation.gov/camping/campgrounds/" + str(camp_id) + "):\n"
     count = 0
     for sites_array in avaiable_sites[campground]:
         for date in sites_array:
