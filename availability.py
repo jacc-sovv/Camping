@@ -1,12 +1,18 @@
 import requests
 import json
 from datetime import datetime
+import smtplib, ssl
+from email.message import EmailMessage
 
 # Rec.gov api key - bb76ad61-c8ba-42b1-935f-d1e574aec492
 # orgid of NPS is 128
 
 weekends = True
 allow_group_sites = False
+send_email = False
+SERVER = "smtp.gmail.com"
+FROM = "email to send from"
+TO = ["your email"] # must be a list
 
 
 campgrounds = {232462 : "Rocky Mountain National Park Glacier Basin Campground",
@@ -55,6 +61,7 @@ availability_as_string = ""
 for campground in avaiable_sites:
 
     availability_as_string += campground + " Availability (" + "https://www.recreation.gov/camping/campgrounds/" + "):\n"
+    count = 0
     for sites_array in avaiable_sites[campground]:
         for date in sites_array:
             if(date[0][0] == "G" and allow_group_sites == False):  #Group site, needs like 25 ppl
@@ -67,32 +74,34 @@ for campground in avaiable_sites:
                 if(day_no > 3):     #Fridays, Saturdays, Sundays
                     single_availability = "Campsite " + date[0] + " is available on " + pretty_date + '\n'
                     availability_as_string += single_availability
+                    count += 1
             else:
                 single_availability = "Campsite " + date[0] + " is available on " + pretty_date + '\n'
                 availability_as_string += single_availability
+                count += 1
+    if(count == 0):
+        availability_as_string += f"No available campsites for {campground}\n"
     availability_as_string += "\n"
 
-print(availability_as_string)
 
-SERVER = "smtp.gmail.com"
-FROM = "email to send from"
-TO = ["your email"] # must be a list
 
-import smtplib, ssl
-from email.message import EmailMessage
 
-msg = EmailMessage()
-msg.set_content(availability_as_string)
-msg["Subject"] = "An Email Alert"
-msg["From"] = FROM
-msg["To"] = TO
 
-context=ssl.create_default_context()
+if(send_email):
+    msg = EmailMessage()
+    msg.set_content(availability_as_string)
+    msg["Subject"] = "An Email Alert"
+    msg["From"] = FROM
+    msg["To"] = TO
 
-with smtplib.SMTP("smtp.gmail.com", port=587) as smtp:
-    smtp.starttls(context=context)
-    smtp.login(msg["From"], "FROM email password")
-    smtp.send_message(msg)
+    context=ssl.create_default_context()
+
+    with smtplib.SMTP(SERVER, port=587) as smtp:
+        smtp.starttls(context=context)
+        smtp.login(msg["From"], "FROM email password")
+        smtp.send_message(msg)
+else:
+    print(availability_as_string)
 
 
 
