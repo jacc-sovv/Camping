@@ -75,8 +75,8 @@ for campground in avaiable_sites:
 print(availability_as_string)
 
 SERVER = "smtp.gmail.com"
-FROM = "jsguitarrocks3@gmail.com"
-TO = ["jsguitarrocks@gmail.com"] # must be a list
+FROM = "email to send from"
+TO = ["your email"] # must be a list
 
 import smtplib, ssl
 from email.message import EmailMessage
@@ -91,7 +91,7 @@ context=ssl.create_default_context()
 
 with smtplib.SMTP("smtp.gmail.com", port=587) as smtp:
     smtp.starttls(context=context)
-    smtp.login(msg["From"], "inrdumfthceztgnd")
+    smtp.login(msg["From"], "FROM email password")
     smtp.send_message(msg)
 
 
